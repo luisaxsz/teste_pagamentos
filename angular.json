@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -13,9 +13,11 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "src/main.ts",
+            "outputPath": "dist/webapp",
+            "index": "src/main/webapp/index.html",
+            "browser": "src/main/webapp/main.ts",
             "polyfills": [
-              "zone.js"
+              "src/main/webapp/polyfills.ts"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -25,7 +27,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/main/webapp/styles.css"
             ]
           },
           "configurations": {
@@ -71,8 +73,8 @@
           "builder": "@angular/build:karma",
           "options": {
             "polyfills": [
-              "zone.js",
-              "zone.js/testing"
+              "src/main/webapp/zone.js",
+              "src/main/webapp/zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
@@ -82,7 +84,7 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/main/webapp/styles.css"
             ]
           }
         }
