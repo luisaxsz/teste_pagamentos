@@ -12,8 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity(name = "STATUS_PAGAMENTO")
 public class StatusPagamento {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_STATUS_PAGAMENTO")
+    @SequenceGenerator(name = "SEQ_STATUS_PAGAMENTO", sequenceName = "SEQ_STATUS_PAGAMENTO", allocationSize = 1)
     private Long id;
 
     @Enumerated(EnumType.STRING)

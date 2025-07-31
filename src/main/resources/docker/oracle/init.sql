@@ -1,0 +1,15 @@
+CONNECT SYSTEM/oracle@XE
+ALTER SESSION SET "_ORACLE_SCRIPT"=true;
+
+CREATE TABLESPACE pagamentos DATAFILE '/opt/oracle/oradata/pagamentos.dbf' SIZE 100M ONLINE;
+CREATE TABLESPACE idx_pagamentos DATAFILE '/opt/oracle/oradata/idx_pagamentos.dbf' SIZE 100M;
+CREATE USER pagamentos IDENTIFIED BY pagamentos DEFAULT TABLESPACE pagamentos TEMPORARY TABLESPACE TEMP;
+ALTER USER pagamentos QUOTA UNLIMITED ON pagamentos;
+GRANT CONNECT TO pagamentos;
+GRANT RESOURCE TO pagamentos;
+GRANT CREATE VIEW TO pagamentos;
+GRANT CREATE PROCEDURE TO pagamentos;
+GRANT CREATE JOB TO pagamentos;
+ALTER USER pagamentos DEFAULT ROLE CONNECT, RESOURCE;
+COMMIT;
+EXIT;
