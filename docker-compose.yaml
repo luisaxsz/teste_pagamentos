@@ -1,0 +1,14 @@
+version: '3'
+services:
+  oracle-db:
+    image: 'luisaxsz/oracle-xe-18.4.0:18.4.0'
+    container_name: oracle-xe-18.4.0
+    restart: always
+    environment:
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+      - ORACLE_SID=XE
+    volumes:
+      - ./src/main/resources/docker/oracle:/opt/oracle/scripts/startup
+    ports:
+      - '1521:1521'
