@@ -36,4 +36,7 @@ public class Pagamento {
     @JoinColumn(name = "STATUS_ID", nullable = false)
     private StatusPagamento status;
 
+    @Column(name = "ATIVO")
+    private Boolean ativo;
+
 }
