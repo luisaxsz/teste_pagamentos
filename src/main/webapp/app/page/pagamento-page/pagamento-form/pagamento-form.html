@@ -2,6 +2,12 @@
   [formGroup]="formGroup"
   style="padding: 2em"
 >
+
+  <div class="modal-header">
+    <h5 class="modal-title"><i class="bi bi-info-circle"></i> Novo Pagamento</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+
   <div class="row" style="padding: 1em">
     <div class="col">
       <label for="formGroupExampleInput" class="form-label">Identificação</label>
@@ -52,7 +58,7 @@
   }
   <div class="d-flex gap-2">
     <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
-    <button (click)="save()" type="submit" class="btn btn-primary">Salvar Pagamento</button>
+    <button (click)="save()" type="submit" class="btn btn-primary"><i class="bi bi-box-arrow-left"></i> Salvar Pagamento</button>
   </div>
 
 </form>
