@@ -10,7 +10,7 @@
     <div class="col">
       <label for="formGroupExampleInput" class="form-label">Método de Pagamento</label>
       <select class="form-select" aria-label="Default select example" formControlName="tipo">
-        <option selected>Método de Pagamento</option>
+        <option [ngValue]="null" disabled selected>Método de Pagamento</option>
         @for (item of tipoPagamentoDatasource; track item.id) {
           <option [ngValue]="item">{{ item.nome }}</option>
         }
@@ -50,7 +50,9 @@
       </div>
     </div>
   }
+  <div class="d-flex gap-2">
+    <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
+    <button (click)="save()" type="submit" class="btn btn-primary">Salvar Pagamento</button>
+  </div>
 
-
-  <button (click)="save()" type="submit" class="btn btn-primary">Salvar Pagamento</button>
 </form>

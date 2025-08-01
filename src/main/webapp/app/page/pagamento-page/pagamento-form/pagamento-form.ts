@@ -9,6 +9,7 @@ import {StatusPagamento} from '../../../domain/model/status-pagamento';
 import {StatusPagamentoService} from '../../../service/status-pagamento.service';
 import {StatusPagamentoTypeEnum} from '../../../domain/enums/status-pagamento-type.enum';
 import {TipoPagamentoTypeEnum} from '../../../domain/enums/tipo-pagamento-type.enum';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-pagamento-form',
@@ -38,7 +39,8 @@ export class PagamentoForm {
     private fb: FormBuilder,
     private tipoPagamentoService: TipoPagamentoService,
     private statusPagamentoService: StatusPagamentoService,
-    private pagamentoService: PagamentoService
+    private pagamentoService: PagamentoService,
+    private modalService: NgbModal
   ) {
     this.getTiposPagamento();
     this.getStatusPagamento();
@@ -99,6 +101,7 @@ export class PagamentoForm {
         next: () => {
           this.showToastMessage('Pagamento salvo com sucesso!', 'text-bg-success');
           this.formGroup.reset();
+          this.modalService.dismissAll()
         },
         error: () => {
           this.showToastMessage('Erro ao salvar pagamento.', 'text-bg-danger');
@@ -107,6 +110,10 @@ export class PagamentoForm {
     } else {
       this.showToastMessage('Preencha todos os campos obrigatórios.', 'text-bg-warning');
     }
+  }
+
+  close() {
+    this.modalService.dismissAll()
   }
 
   showToastMessage(message: string, cssClass: string) {
