@@ -9,10 +9,10 @@
         (input)="filtrarPagamentos()"
       />
       <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-light btn-lg dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
           Filtrar por Status
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu bg-white w-100">
           @for (item of statusPagamentoDatasource; track item.id) {
             <button class="dropdown-item" (click)="filtrarByStatus(item?.nome)">{{ item.nome }}</button>
           }
@@ -25,7 +25,7 @@
           title="Limpar filtro"
           style="height: 38px;"
         >
-          <i class="bi bi-trash"></i> <!-- ícone lixeira do Bootstrap Icons -->
+          <i class="bi bi-trash"></i>
         </button>
       }
 
@@ -66,9 +66,9 @@
               </div>
             </td>
             <td>
-              <div class="btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-primary">Middle</button>
-                <button type="button" class="btn btn-outline-primary">Right</button>
+              <div class="d-flex gap-2 text-center justify-content-center">
+                <button type="button" class="btn btn-outline-primary">Inativar</button>
+                <button type="button" class="btn btn-outline-primary">Processar</button>
               </div>
             </td>
           </tr>
