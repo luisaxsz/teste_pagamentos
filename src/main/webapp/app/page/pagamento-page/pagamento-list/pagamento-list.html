@@ -13,11 +13,22 @@
           Filtrar por Status
         </button>
         <ul class="dropdown-menu">
-          @for (item of statusPagamentoDatasource; track item.id){
+          @for (item of statusPagamentoDatasource; track item.id) {
             <button class="dropdown-item" (click)="filtrarByStatus(item?.nome)">{{ item.nome }}</button>
           }
         </ul>
       </div>
+      @if (isFiltered) {
+        <button
+          class="btn btn-outline-danger"
+          (click)="limparFiltroStatus()"
+          title="Limpar filtro"
+          style="height: 38px;"
+        >
+          <i class="bi bi-trash"></i> <!-- ícone lixeira do Bootstrap Icons -->
+        </button>
+      }
+
       <button
         type="button"
         class="btn btn-outline-primary"
@@ -28,8 +39,8 @@
     </div>
     <table class="table table-striped table-hover text-center align-middle">
       <thead>
-      <tr >
-        <th  scope="col">Identificação</th>
+      <tr>
+        <th scope="col">Identificação</th>
         <th scope="col">Método Pagamento</th>
         <th scope="col">Valor</th>
         <th scope="col">Status</th>

@@ -31,6 +31,8 @@ export class PagamentoList {
   pagina: string = '1';
   tamanho: string = '10'
 
+  isFiltered: boolean = false
+
 
   constructor(
     private pagamentoService: PagamentoService,
@@ -63,6 +65,7 @@ export class PagamentoList {
 
   filtrarByStatus(status?: string) {
     this.pagamentoService.filtrarByTypo(status).subscribe((data) => {
+      this.isFiltered = true
       return this.pagamentosDatasource = data.map((item: any) => ({
         id: item.id,
         cpfCnpj: item.cpfCnpj,
@@ -73,6 +76,11 @@ export class PagamentoList {
         ativo: item.ativo
       }));
     })
+  }
+
+  limparFiltroStatus() {
+    this.isFiltered = false;
+    this.carregarLista();
   }
 
   filtrarPagamentos() {
