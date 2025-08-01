@@ -67,8 +67,8 @@
             </td>
             <td>
               <div class="d-flex gap-2 text-center justify-content-center">
-                <button type="button" class="btn btn-outline-primary">Inativar</button>
-                <button type="button" class="btn btn-outline-primary">Processar</button>
+                <button type="button" class="btn btn-outline-primary" (click)="inativar(item?.id)">Inativar</button>
+                <button type="button" class="btn btn-outline-primary" (click)="processarPagamentos()">Processar</button>
               </div>
             </td>
           </tr>
@@ -81,9 +81,31 @@
       </tfoot>
     </table>
 
+    @if (mostrarToast) {
+      <div
+        class="toast align-items-center border-0 position-fixed bottom-0 end-0 m-3"
+        [ngClass]="classeToast"
+        style="z-index: 1055; display: block;"
+        role="alert"
+      >
+        <div class="d-flex">
+          <div class="toast-body">
+            {{ mensagemToast }}
+          </div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            (click)="mostrarToast = false"
+          ></button>
+        </div>
+      </div>
+    }
+
 
   </div>
 </div>
+
+
 
 
 <router-outlet></router-outlet>

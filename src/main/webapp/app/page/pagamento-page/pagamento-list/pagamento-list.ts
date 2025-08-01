@@ -34,6 +34,10 @@ export class PagamentoList {
   isFiltered: boolean = false
   filterByTypeSelecionado?: string = '';
 
+  mostrarToast: boolean = false;
+  mensagemToast: string = '';
+  classeToast: string = 'text-bg-primary';
+
 
   constructor(
     private pagamentoService: PagamentoService,
@@ -105,11 +109,34 @@ export class PagamentoList {
     this.carregarLista();
   }
 
+  inativar(id?: number) {
+    this.pagamentoService.inativar(id).subscribe({
+      next: () => {
+        this.showToastMessage('Pagamento inativado com sucesso!', 'text-bg-success');
+      },
+      error: () => {
+        this.showToastMessage('Erro ao inativar pagamento.', 'text-bg-danger');
+      }
+    })
+  }
+
+  processarPagamentos() {
+
+  }
+
   irParaForm() {
     this.modalService.open(PagamentoForm, {
       size: 'lg',
       backdrop: 'static'
     });
+  }
+
+  showToastMessage(message: string, cssClass: string) {
+    this.mensagemToast = message;
+    this.classeToast = cssClass;
+    this.mostrarToast = true;
+
+    setTimeout(() => this.mostrarToast = false, 3000);
   }
 
 }

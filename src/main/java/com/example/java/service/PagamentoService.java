@@ -1,6 +1,8 @@
 package com.example.java.service;
 
+import com.example.java.domain.enums.StatusEnum;
 import com.example.java.domain.model.Pagamento;
+import com.example.java.domain.model.StatusPagamento;
 import com.example.java.repository.PagamentoRepository;
 import com.example.java.repository.StatusPagamentoRepository;
 import com.example.java.repository.TipoPagamentoRepository;
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.java.domain.enums.StatusEnum.PENDENTE_PROCESSAMENTO;
+import static com.example.java.domain.enums.StatusEnum.*;
 
 @Service
 @AllArgsConstructor
@@ -40,6 +42,40 @@ public class PagamentoService {
     var pagamento = pagamentoRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     pagamento.setAtivo(false);
     return pagamentoRepository.save(pagamento);
+  }
+
+  public Pagamento processar(Long id, StatusPagamento statusPagamento) {
+    var pagamento = pagamentoRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    validarSePodeAlterar(pagamento.getStatus().getTipo(), statusPagamento.getTipo());
+    // Lógica para alteração
+    pagamento.setStatus(statusPagamento);
+    return pagamentoRepository.save(pagamento);
+  }
+
+  public static void validarSePodeAlterar(StatusEnum statusAtual, StatusEnum statusPagamentoNovo) {
+    switch (statusAtual) {
+      case PENDENTE_PROCESSAMENTO:
+        if (statusPagamentoNovo != PROCESSADO_SUCESSO && statusPagamentoNovo != PROCESSADO_FALHA) {
+          throw new IllegalArgumentException(
+            String.format("Transição inválida: %s → %s", statusAtual, statusPagamentoNovo)
+          );
+        }
+        break;
+      case PROCESSADO_FALHA:
+        if (statusPagamentoNovo != PENDENTE_PROCESSAMENTO) {
+          throw new IllegalArgumentException(
+            String.format("Transição inválida: %s → %s", statusAtual, statusPagamentoNovo)
+          );
+        }
+        break;
+      case PROCESSADO_SUCESSO:
+        throw new IllegalArgumentException(
+          String.format("Transição inválida: %s → %s", statusAtual, statusPagamentoNovo)
+        );
+
+      default:
+        throw new IllegalStateException("Status desconhecido: " + statusAtual);
+    }
   }
 
   public Pagamento atualizarStatus(Long id, Pagamento resource) {

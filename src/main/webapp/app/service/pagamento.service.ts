@@ -31,7 +31,9 @@ export class PagamentoService {
 
   public processar(){ }
 
-  public inativar(){ }
+  public inativar(id?: number): Observable<Pagamento>{
+    return this.http.put<Pagamento>(`${this.API}/inativar/${id}`, {});
+  }
 
   public adicionar(resource: Pagamento): Observable<Pagamento> {
     return this.http.post(this.API, resource);
