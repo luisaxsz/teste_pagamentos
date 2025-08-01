@@ -10,7 +10,7 @@
       />
       <div class="dropdown">
         <button class="btn btn-light btn-lg dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Filtrar por Status
+          {{ filterByTypeSelecionado || 'Filtrar por Status' }}
         </button>
         <ul class="dropdown-menu bg-white w-100">
           @for (item of statusPagamentoDatasource; track item.id) {

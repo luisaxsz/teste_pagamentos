@@ -32,6 +32,7 @@ export class PagamentoList {
   tamanho: string = '10'
 
   isFiltered: boolean = false
+  filterByTypeSelecionado?: string = '';
 
 
   constructor(
@@ -78,6 +79,7 @@ export class PagamentoList {
   }
 
   filtrarByStatus(status?: string) {
+    this.filterByTypeSelecionado = status;
     this.pagamentoService.filtrarByTypo(status).subscribe((data) => {
       this.isFiltered = true
       return this.pagamentosDatasource = data.map((item: any) => ({
@@ -94,6 +96,7 @@ export class PagamentoList {
 
   limparFiltroStatus() {
     this.isFiltered = false;
+    this.filterByTypeSelecionado = '';
     this.carregarLista();
   }
 
