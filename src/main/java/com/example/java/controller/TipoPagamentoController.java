@@ -13,6 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/tipo-pagamento")
 @AllArgsConstructor
+@CrossOrigin(origins = {"*"}, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 public class TipoPagamentoController {
 
     private final TipoPagamentoRepository tipoPagamentoRepository;
