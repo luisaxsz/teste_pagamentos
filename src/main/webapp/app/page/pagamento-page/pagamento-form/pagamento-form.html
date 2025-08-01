@@ -1,1 +1,56 @@
-<p>pagamento-form works!</p>
+<form
+  [formGroup]="formGroup"
+  style="padding: 2em"
+>
+  <div class="row" style="padding: 1em">
+    <div class="col">
+      <label for="formGroupExampleInput" class="form-label">Identificação</label>
+      <input formControlName="cpfCnpj" type="text" class="form-control" placeholder="Identificação" aria-label="First name">
+    </div>
+    <div class="col">
+      <label for="formGroupExampleInput" class="form-label">Método de Pagamento</label>
+      <select class="form-select" aria-label="Default select example" formControlName="tipo">
+        <option selected>Método de Pagamento</option>
+        @for (item of tipoPagamentoDatasource; track item.id) {
+          <option [ngValue]="item">{{ item.nome }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="row" style="padding: 1em">
+    @if (isPagamentoCartao){
+      <div class="col">
+        <label for="formGroupExampleInput" class="form-label">Número do cartão</label>
+        <input formControlName="numCartao" type="text" class="form-control" placeholder="Número do cartão" aria-label="First name">
+      </div>
+    }
+    <div class="col">
+      <label for="formGroupExampleInput" class="form-label">Valor</label>
+      <input formControlName="valor" class="form-control" type="text" placeholder="Valor" aria-label="default input example">
+    </div>
+  </div>
+
+  @if (mostrarToast) {
+    <div
+      class="toast align-items-center border-0 position-fixed bottom-0 end-0 m-3"
+      [ngClass]="classeToast"
+      style="z-index: 1055; display: block;"
+      role="alert"
+    >
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ mensagemToast }}
+        </div>
+        <button
+          type="button"
+          class="btn-close btn-close-white me-2 m-auto"
+          (click)="mostrarToast = false"
+        ></button>
+      </div>
+    </div>
+  }
+
+
+  <button (click)="save()" type="submit" class="btn btn-primary">Salvar Pagamento</button>
+</form>

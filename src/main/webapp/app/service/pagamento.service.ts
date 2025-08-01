@@ -1,6 +1,7 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
+import {Pagamento} from '../domain/model/pagamento';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,7 @@ export class PagamentoService {
   private readonly API = "http://localhost:8080/api/pagamentos"
 
   public listar(pagina: string, qntItens: string, q?: string): Observable<any>{
-    let params = new HttpParams()
-      .set('pagina', pagina)
-      .set('tamanho', qntItens);
+    let params = new HttpParams();
 
     if (q && q.trim() !== '') {
       params = params.set('q', q.trim());
@@ -29,7 +28,9 @@ export class PagamentoService {
 
   public inativar(){ }
 
-  public adicionar() { }
+  public adicionar(resource: Pagamento): Observable<Pagamento> {
+    return this.http.post(this.API, resource);
+  }
 
 
 }

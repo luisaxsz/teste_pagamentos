@@ -2,8 +2,10 @@ import {Component} from '@angular/core';
 import {PagamentoService} from '../../../service/pagamento.service';
 import {take} from 'rxjs';
 import {CurrencyPipe, NgClass} from '@angular/common';
-import {RouterOutlet} from '@angular/router';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {PagamentoForm} from '../pagamento-form/pagamento-form';
 
 @Component({
   selector: 'app-pagamento-list',
@@ -26,7 +28,8 @@ export class PagamentoList {
 
 
   constructor(
-    private pagamentoService: PagamentoService
+    private pagamentoService: PagamentoService,
+    private modalService: NgbModal
   ) {
     this.carregarLista();
   }
@@ -46,8 +49,15 @@ export class PagamentoList {
   }
 
   filtrarPagamentos() {
-    this.pagina = '1';
+    this.pagina = '0';
     this.carregarLista();
+  }
+
+  irParaForm(){
+    this.modalService.open(PagamentoForm, {
+      size: 'lg',
+      backdrop: 'static'
+    });
   }
 
 }

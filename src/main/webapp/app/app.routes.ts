@@ -17,10 +17,6 @@ export const routes: Routes = [
       {
         path: "listar-pagamentos",
         component: PagamentoList
-      },
-      {
-        path: "pagamento-form",
-        component: PagamentoForm
       }
     ]
   }
