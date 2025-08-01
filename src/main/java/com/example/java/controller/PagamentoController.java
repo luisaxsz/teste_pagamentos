@@ -6,11 +6,9 @@ import com.example.java.service.PagamentoService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +34,11 @@ public class PagamentoController {
   @GetMapping("/{id}")
   public ResponseEntity<Optional<Pagamento>> findById(@PathVariable Long id) {
     return ResponseEntity.ok(pagamentoRepository.findById(id));
+  }
+
+  @GetMapping("/status/{statusPagamento}")
+  public ResponseEntity<List<Pagamento>> findByStatusType(@PathVariable String statusPagamento) {
+    return ResponseEntity.ok(pagamentoRepository.findAllByStatus_Nome(statusPagamento));
   }
 
   @PostMapping

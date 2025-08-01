@@ -2,6 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Pagamento} from '../domain/model/pagamento';
+import {StatusPagamentoTypeEnum} from '../domain/enums/status-pagamento-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class PagamentoService {
 
   public adicionar(resource: Pagamento): Observable<Pagamento> {
     return this.http.post(this.API, resource);
+  }
+
+  public filtrarByTypo(status?: string): Observable<Pagamento[]>{
+    return this.http.get<Pagamento[]>(`${this.API}/status/${status}`)
   }
 
 

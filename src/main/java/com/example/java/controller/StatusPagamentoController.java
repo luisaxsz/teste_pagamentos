@@ -1,5 +1,6 @@
 package com.example.java.controller;
 
+import com.example.java.domain.enums.StatusEnum;
 import com.example.java.domain.model.StatusPagamento;
 import com.example.java.repository.StatusPagamentoRepository;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ public class StatusPagamentoController {
     public ResponseEntity<List<StatusPagamento>> findAll() {
         return ResponseEntity.ok(statusPagamentoRepository.findAll());
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<StatusPagamento>> findById(@PathVariable Long id) {

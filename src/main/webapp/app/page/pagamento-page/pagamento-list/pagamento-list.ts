@@ -4,8 +4,11 @@ import {take} from 'rxjs';
 import {CurrencyPipe, NgClass} from '@angular/common';
 import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PagamentoForm} from '../pagamento-form/pagamento-form';
+import {StatusPagamentoService} from '../../../service/status-pagamento.service';
+import {StatusPagamento} from '../../../domain/model/status-pagamento';
+import {StatusPagamentoTypeEnum} from '../../../domain/enums/status-pagamento-type.enum';
 
 @Component({
   selector: 'app-pagamento-list',
@@ -22,6 +25,8 @@ import {PagamentoForm} from '../pagamento-form/pagamento-form';
 export class PagamentoList {
 
   pagamentosDatasource!: any;
+  statusPagamentoDatasource!: StatusPagamento[];
+
   filtro: string = '';
   pagina: string = '1';
   tamanho: string = '10'
@@ -29,14 +34,36 @@ export class PagamentoList {
 
   constructor(
     private pagamentoService: PagamentoService,
+    private statusPagamentoService: StatusPagamentoService,
     private modalService: NgbModal
   ) {
     this.carregarLista();
+    this.carregarStatusPagamento();
   }
 
-  carregarLista(){
+  carregarLista() {
     this.pagamentoService.listar(this.pagina, this.tamanho, this.filtro).pipe(take(1)).subscribe((data) => {
       this.pagamentosDatasource = data.content.map((item: any) => ({
+        id: item.id,
+        cpfCnpj: item.cpfCnpj,
+        numCartao: item.numCartao,
+        valor: item.valor,
+        tipo: item.tipo?.nome,
+        status: item.status?.nome,
+        ativo: item.ativo
+      }));
+    })
+  }
+
+  carregarStatusPagamento() {
+    this.statusPagamentoService.listar().pipe(take(1)).subscribe((data) => {
+      this.statusPagamentoDatasource = data;
+    })
+  }
+
+  filtrarByStatus(status?: string) {
+    this.pagamentoService.filtrarByTypo(status).subscribe((data) => {
+      return this.pagamentosDatasource = data.map((item: any) => ({
         id: item.id,
         cpfCnpj: item.cpfCnpj,
         numCartao: item.numCartao,
@@ -53,7 +80,7 @@ export class PagamentoList {
     this.carregarLista();
   }
 
-  irParaForm(){
+  irParaForm() {
     this.modalService.open(PagamentoForm, {
       size: 'lg',
       backdrop: 'static'
