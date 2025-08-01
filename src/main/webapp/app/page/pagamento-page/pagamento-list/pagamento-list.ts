@@ -43,9 +43,23 @@ export class PagamentoList {
     this.carregarStatusPagamento();
   }
 
-  carregarLista() {
-    this.pagamentoService.listar(this.pagina, this.tamanho, this.filtro).pipe(take(1)).subscribe((data) => {
+  carregarListaPage() {
+    this.pagamentoService.listarPage(this.pagina, this.tamanho, this.filtro).pipe(take(1)).subscribe((data) => {
       this.pagamentosDatasource = data.content.map((item: any) => ({
+        id: item.id,
+        cpfCnpj: item.cpfCnpj,
+        numCartao: item.numCartao,
+        valor: item.valor,
+        tipo: item.tipo?.nome,
+        status: item.status?.nome,
+        ativo: item.ativo
+      }));
+    })
+  }
+
+  carregarLista() {
+    this.pagamentoService.listar().pipe(take(1)).subscribe((data) => {
+      this.pagamentosDatasource = data.map((item: any) => ({
         id: item.id,
         cpfCnpj: item.cpfCnpj,
         numCartao: item.numCartao,

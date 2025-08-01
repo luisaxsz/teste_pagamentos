@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.example.java.domain.enums.StatusEnum.PENDENTE_PROCESSAMENTO;
 
 @Service
@@ -46,7 +48,11 @@ public class PagamentoService {
     return pagamentoRepository.save(resource);
   }
 
-  public Page<Pagamento> listar(
+  public List<Pagamento> listar() {
+    return pagamentoRepository.findAll();
+  }
+
+  public Page<Pagamento> listarPage(
     int pagina,
     int tamanho,
     String q) {

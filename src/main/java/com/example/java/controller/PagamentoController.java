@@ -22,13 +22,18 @@ public class PagamentoController {
   private final PagamentoRepository pagamentoRepository;
   private final ModelMapper modelMapper;
 
-  @GetMapping
-  public ResponseEntity<Page<Pagamento>> findAll(
+  @GetMapping("/page")
+  public ResponseEntity<Page<Pagamento>> findAllPage(
     @RequestParam(defaultValue = "0") int pagina,
     @RequestParam(defaultValue = "10") int tamanho,
     @RequestParam(required = false) String filtro
   ) {
-    return ResponseEntity.ok(pagamentoService.listar(pagina, tamanho, filtro));
+    return ResponseEntity.ok(pagamentoService.listarPage(pagina, tamanho, filtro));
+  }
+
+  @GetMapping
+  public ResponseEntity<List<Pagamento>> findAll() {
+    return ResponseEntity.ok(pagamentoService.listar());
   }
 
   @GetMapping("/{id}")

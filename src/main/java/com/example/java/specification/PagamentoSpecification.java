@@ -4,8 +4,6 @@ import com.example.java.domain.model.Pagamento;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
 @Component
 public class PagamentoSpecification {
 

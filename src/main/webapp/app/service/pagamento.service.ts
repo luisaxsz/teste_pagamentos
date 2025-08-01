@@ -15,7 +15,7 @@ export class PagamentoService {
 
   private readonly API = "http://localhost:8080/api/pagamentos"
 
-  public listar(pagina: string, qntItens: string, q?: string): Observable<any>{
+  public listarPage(pagina: string, qntItens: string, q?: string): Observable<any>{
     let params = new HttpParams();
 
     if (q && q.trim() !== '') {
@@ -23,6 +23,10 @@ export class PagamentoService {
     }
 
     return this.http.get(this.API, { params })
+  }
+
+  public listar(): Observable<Pagamento[]>{
+    return this.http.get<Pagamento[]>(this.API);
   }
 
   public processar(){ }
