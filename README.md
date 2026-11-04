@@ -1,6 +1,5 @@
 # Teste Pagamentos
 
-[![CI](https://github.com/luisaxsz/teste_pagamentos/actions/workflows/ci.yml/badge.svg)](https://github.com/luisaxsz/teste_pagamentos/actions/workflows/ci.yml)
 ![Java 21](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5-6DB33F?logo=springboot&logoColor=white)
 ![Angular](https://img.shields.io/badge/Angular-20-DD0031?logo=angular&logoColor=white)
@@ -12,7 +11,7 @@ Aplicação full stack para gestão de pagamentos, desenvolvida como desafio té
 - **Backend:** Java 21, Spring Boot 3.5, Spring Data JPA, Specification (filtros dinâmicos), ModelMapper
 - **Banco:** Oracle XE 18 com migrações **Flyway**
 - **Frontend:** Angular 20
-- **Infra:** Docker Compose, GitHub Actions
+- **Infra:** Docker Compose
 
 ## Endpoints (prefixo `/api`)
 | Recurso | Rotas |
@@ -35,6 +34,3 @@ mvn clean spring-boot:run
 npm install
 npx ng serve
 ```
-
-## Pipeline
-O GitHub Actions compila e testa o backend e faz o build do frontend a cada push e pull request (`.github/workflows/ci.yml`).
