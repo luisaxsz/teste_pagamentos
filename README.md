@@ -1,35 +1,40 @@
 # Teste Pagamentos
 
-### Tecnologias necessárias
+[![CI](https://github.com/luisaxsz/teste_pagamentos/actions/workflows/ci.yml/badge.svg)](https://github.com/luisaxsz/teste_pagamentos/actions/workflows/ci.yml)
+![Java 21](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5-6DB33F?logo=springboot&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-20-DD0031?logo=angular&logoColor=white)
+![Oracle](https://img.shields.io/badge/Oracle-XE_18-F80000?logo=oracle&logoColor=white)
 
-* java 21
-* node 22
-* docker
+Aplicação full stack para gestão de pagamentos, desenvolvida como desafio técnico de seleção. Permite cadastrar, consultar, filtrar, alterar o status e inativar pagamentos.
 
-### Inicializar projeto
-**Passo 1:** Ir para pasta do projeto <br>
-**Passo 2:** Iniciar banco de dados oracle
+## Stack
+- **Backend:** Java 21, Spring Boot 3.5, Spring Data JPA, Specification (filtros dinâmicos), ModelMapper
+- **Banco:** Oracle XE 18 com migrações **Flyway**
+- **Frontend:** Angular 20
+- **Infra:** Docker Compose, GitHub Actions
 
-`
-    docker-compose up
-`
+## Endpoints (prefixo `/api`)
+| Recurso | Rotas |
+|---|---|
+| Pagamentos | `GET /pagamentos`, `GET /pagamentos/page` (paginado), `GET /pagamentos/{id}`, `GET /pagamentos/status/{status}`, `POST`, `PUT /{id}`, `PUT /status/{id}`, `PUT /inativar/{id}`, `DELETE /{id}` |
+| Status de pagamento | `GET`, `GET /{id}`, `POST`, `PUT /{id}`, `DELETE /{id}` |
+| Tipo de pagamento | `GET`, `GET /{id}`, `POST` |
 
-**Passo 3:** Iniciar backend
+## Como executar
+Pré-requisitos: Java 21 (`sdk env`), Node 22 (`nvm use`), Maven e Docker.
 
-`
-    sdk env
-`
+```bash
+# 1. banco Oracle
+docker compose up -d
 
-`
-     mvn clean spring-boot:run
-`
+# 2. backend (http://localhost:8080/api)
+mvn clean spring-boot:run
 
-**Passo 4:** Iniciar frontEnd
+# 3. frontend (http://localhost:4200)
+npm install
+npx ng serve
+```
 
-`
-    nvm use
-`
-
-`
-    npx ng s
-`
+## Pipeline
+O GitHub Actions compila e testa o backend e faz o build do frontend a cada push e pull request (`.github/workflows/ci.yml`).
